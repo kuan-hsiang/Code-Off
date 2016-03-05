@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System;
 
 namespace CodeOff
 {
@@ -9,12 +6,11 @@ namespace CodeOff
     {
         static void Main(string[] args)
         {
-            string[] lines = System.IO.File.ReadAllLines(@"C:\Users\coocloud\Documents\Code-Off-master\code_off-3\code_off-3-2.in");
-            Console.WriteLine(lines.Length);
-            char[,] myCharArray = new char[lines.Length,lines.Length];
-            bool[,] visited = new bool[lines.Length, lines.Length];
-            bool[] waterSource = new bool[100];
-            int[,] territory = new int[lines.Length, lines.Length];
+            var lines = System.IO.File.ReadAllLines(@"C:\Users\coocloud\Documents\Code-Off-master\code_off-3\code_off-3-2.in");
+            var myCharArray = new char[lines.Length,lines.Length];
+            var visited = new bool[lines.Length, lines.Length];
+            var waterSource = new bool[100];
+            var territory = new int[lines.Length, lines.Length];
             int row = 0;
             foreach (string line in lines)
             {
