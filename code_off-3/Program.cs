@@ -1,4 +1,7 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
 namespace CodeOff
 {
@@ -6,8 +9,8 @@ namespace CodeOff
     {
         static void Main(string[] args)
         {
-            var lines = System.IO.File.ReadAllLines(@"C:\Users\coocloud\Documents\Code-Off-master\code_off-3\code_off-3-2.in");
-            var myCharArray = new char[lines.Length,lines.Length];
+            var lines = System.IO.File.ReadAllLines(@"C:\Users\kuan-hsiang.fu\Desktop\CodeOff\src\com\coocloud\code_off-3-2.in");
+            var myCharArray = new char[lines.Length, lines.Length];
             var visited = new bool[lines.Length, lines.Length];
             var waterSource = new bool[100];
             var territory = new int[lines.Length, lines.Length];
@@ -17,7 +20,7 @@ namespace CodeOff
                 int column = 0;
                 foreach (char character in line)
                 {
-                    myCharArray[row,column] = character;
+                    myCharArray[row, column] = character;
                     column++;
                 }
                 row++;
@@ -44,24 +47,27 @@ namespace CodeOff
                     }
                 }
             }
-
-            for (int i = 0; i <= xBound; i++)
+            using (System.IO.StreamWriter file = new System.IO.StreamWriter(@"C:\Users\kuan-hsiang.fu\Desktop\CodeOff\src\com\coocloud\output3-2.txt"))
             {
-                for (int j = 0; j <= xBound; j++)
+                for (int i = 0; i <= xBound; i++)
                 {
-                    if (territory[i, j]==largestWaterSource)
+                    for (int j = 0; j <= xBound; j++)
                     {
-                        myCharArray[i, j] = '*';
+                        if (territory[i, j] == largestWaterSource)
+                        {
+                            myCharArray[i, j] = '*';
+                        }
+                        file.Write(myCharArray[i, j]);
                     }
-                    Console.Write(myCharArray[i, j]);
+                    file.WriteLine();
                 }
-                Console.WriteLine();
             }
+
             Console.ReadKey();
         }
         public int getUnusedNumber(bool[] array)
         {
-            for (int i=0; i<array.Length; i++)
+            for (int i = 0; i < array.Length; i++)
             {
                 if (!array[i])
                 {
@@ -74,18 +80,18 @@ namespace CodeOff
 
         public int populateWater(int x, int y, bool[,] visited, char[,] charArray, int[,] territory, int sourceType, int length)
         {
-            if (x<0 || x>length-1 || y<0 || y>length-1)
+            if (x < 0 || x > length - 1 || y < 0 || y > length - 1)
             {
                 return 0;
             }
-            if (charArray[x,y]=='#' || visited[x,y])
+            if (charArray[x, y] == '#' || visited[x, y])
             {
                 return 0;
             }
             visited[x, y] = true;
             territory[x, y] = sourceType;
-            return 1 + populateWater(x-1,y,visited, charArray,territory,sourceType,length) + populateWater(x + 1, y, visited, charArray, territory, sourceType,length)
-                + populateWater(x, y-1, visited, charArray, territory, sourceType, length) + populateWater(x, y+1, visited, charArray, territory, sourceType,length);
+            return 1 + populateWater(x - 1, y, visited, charArray, territory, sourceType, length) + populateWater(x + 1, y, visited, charArray, territory, sourceType, length)
+                + populateWater(x, y - 1, visited, charArray, territory, sourceType, length) + populateWater(x, y + 1, visited, charArray, territory, sourceType, length);
         }
     }
 }
